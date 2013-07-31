@@ -1,0 +1,51 @@
+<!--@MasterPageFile(Master/Main.cshtml)-->
+<!--@Layout.Title(News Item)-->
+<!--@Layout.Description()-->
+
+@{
+var newsItem = Dynamicweb.Content.Items.Item.GetItemById("News_Item", GetString("Item.Id"));
+
+var data = new {
+	title = GetString("Item.Title"),
+	author = new {
+		name = GetString("Item.Author_Name"),
+		email = GetString("Item.Author_EMail")
+	}
+};
+
+var author = new {
+	name = newsItem["Author_Name"],
+	email = newsItem["Author_EMail"] as string
+};
+
+var newsItemUrl = string.Format("/Default.aspx?ID={0}", Pageview.Page.ID);
+}
+<div class="row">
+	<article class="news-item span9">
+		<header>
+			<h1 class="title"><a href="@newsItemUrl">@newsItem["Title"]</a></h1>
+ 			<div class="well">
+				<img class="author-image" src="http://www.gravatar.com/avatar/@Dynamicweb.Base.MD5HashToString(author.email)?d=identicon" alt="@author.name" />
+				<span class="author-name">@author.name</span>
+
+				<span class="publication-time">
+ 					<span class="date">@string.Format("{0:d}", newsItem["Publication_Time"])</span>
+					<span class="time">@string.Format("{0:t}", newsItem["Publication_Time"])</span>
+				</span>
+			</div>
+		</header>
+
+		<div class="content">
+			@newsItem["Content"]
+		</div>
+	</article>
+
+	<aside id="sidebar" class="span3">
+		@if (!string.IsNullOrEmpty(GetString("DwNavigation(navnewsitems)"))) {
+			<div class="sidebar-nav">
+				<h2><!--@Translate(News, "News")--></h2>
+				<ul class="dwnavigation" id="navnewsitems" data-settings="startlevel:2;expandmode=all;template=ItemTypes.xslt;itemType=News_Item"/>
+			</div>
+		}
+	</aside>
+</div>

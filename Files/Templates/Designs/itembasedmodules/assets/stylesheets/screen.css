@@ -91,3 +91,76 @@
 .post .content {
   margin: 1em 0;
 }
+
+/* line 2, ../sass/_news.scss */
+.news > header {
+  background-position: 100% 50%;
+  background-repeat: no-repeat;
+}
+/* line 10, ../sass/_news.scss */
+.news.news-items .news-item {
+  border-bottom: 1px solid #e3e3e3;
+  padding-bottom: 1em;
+}
+/* line 15, ../sass/_news.scss */
+.news.news-items .read-more {
+  text-align: right;
+}
+
+/* line 22, ../sass/_news.scss */
+.news-item header {
+  overflow: hidden;
+  *zoom: 1;
+}
+/* line 25, ../sass/_news.scss */
+.news-item header > * {
+  vertical-align: top;
+}
+/* line 29, ../sass/_news.scss */
+.news-item header .info {
+  margin: 1em 0;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border: 1px solid #e3e3e3;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  overflow: hidden;
+  *zoom: 1;
+}
+/* line 38, ../sass/_news.scss */
+.news-item header .author-image {
+  width: 40px;
+  height: 40px;
+  float: left;
+  margin-right: 10px;
+  -webkit-border-radius: 500px;
+  -moz-border-radius: 500px;
+  -ms-border-radius: 500px;
+  -o-border-radius: 500px;
+  border-radius: 500px;
+}
+/* line 48, ../sass/_news.scss */
+.news-item header .comments-info {
+  display: block;
+}
+/* line 51, ../sass/_news.scss */
+.news-item header .comments-info a {
+  white-space: nowrap;
+}
+/* line 56, ../sass/_news.scss */
+.news-item header .link {
+  float: right;
+}
+
+/* line 63, ../sass/_news.scss */
+.news-items article + article {
+  margin-top: 2em;
+}
+
+/* line 69, ../sass/_news.scss */
+.news-item .content {
+  margin: 1em 0;
+}

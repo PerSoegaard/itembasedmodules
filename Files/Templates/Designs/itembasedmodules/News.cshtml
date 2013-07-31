@@ -1,0 +1,33 @@
+<!--@MasterPageFile(Master/Main.cshtml)-->
+<!--@Layout.Title(News)-->
+<!--@Layout.Description()-->
+
+<section class="news">
+	<header class="hero-unit">
+		<h1>
+			@GetValue("Item.Title")
+			@if (!string.IsNullOrWhiteSpace(GetString("Item.Tagline"))) {
+			<small class="tagline">@GetString("Item.Tagline")</small>
+			}
+		</h1>
+	</header>
+
+	<div class="row">
+		<section id="main" class="span9">
+			<div class="body-content dwcontent" id="content" class="dwcontent" title="Main content"></div>
+		</section>
+
+		<aside id="sidebar" class="span3">
+			@if (!string.IsNullOrEmpty(GetString("DwNavigation(navnewsitems)"))) {
+				<div class="sidebar-nav">
+					<h2><!--@Translate(News, "News")--></h2>
+					<ul class="dwnavigation" id="navnewsitems" data-settings="startlevel:2;expandmode=all;template=ItemTypes.xslt;itemType=News_Item"/>
+				</div>
+			}
+
+			@if (!string.IsNullOrEmpty(GetString("DwContent(sidebarcontent)"))) {
+			<div id="sidebarcontent" class="dwcontent" title="Sidebar content" data-settings="template:sidebar.html"></div>
+			}
+		</aside>
+	</div>
+</section>
