@@ -1,0 +1,8 @@
+<div class="paragraph">
+  @if (!string.IsNullOrEmpty(GetString("ParagraphText"))) {
+  	<div class="text">@GetString("ParagraphText")</div>
+	}
+  @if (!string.IsNullOrEmpty(GetString("ParagraphModule"))) {
+  	<div class="module">@GetString("ParagraphModule")</div>
+	}
+</div>

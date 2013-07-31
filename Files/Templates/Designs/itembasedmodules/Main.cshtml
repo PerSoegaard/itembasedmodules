@@ -1,0 +1,14 @@
+<!--@MasterPageFile(Master/Main.cshtml)-->
+<!--@Layout.Title(Main)-->
+<!--@Layout.Description()-->
+
+@if (!string.IsNullOrEmpty(GetString("DwContent(content)"))) {
+	<div id="content" class="dwcontent" title="Main content"></div>
+} else {
+	<div class="alert alert-warning">
+		<!--@Translate(Oops_this_page_is_empty, "Oops, this page is empty!")-->
+	</div>
+	<nav id="pagetree">
+		<ul class="dwnavigation" id="navpagetree" data-settings="template:Pagetree.xslt;expandmode:all;sitemap:true"/>
+	</nav>
+}

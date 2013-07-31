@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta name="description" content=""/>
+		<meta name="author" content=""/>
+
+		<title>Item-based Modules</title>
+
+		<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"/>
+		@if (!string.IsNullOrEmpty(GetString("Item.Area.Bootswatch_Theme"))) {
+		<link href='//netdna.bootstrapcdn.com/bootswatch/2.3.2/@GetString("Item.Area.Bootswatch_Theme")/bootstrap.min.css' rel="stylesheet"/>
+		}
+		@if (GetBoolean("Item.Area.Use_Responsive_Design")) {
+		<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-responsive.min.css" rel="stylesheet"/>
+		}
+
+		<link href="assets/stylesheets/screen.css" rel="stylesheet"/>
+
+		<!--@Stylesheets-->
+		<!--@Snippet(Stylesheets)-->
+		<!--@Javascripts-->
+		<!--@Snippet(Javascripts)-->
+	</head>
+
+@{
+	var documentClasses = "";
+	if (!string.IsNullOrEmpty(GetString("DwNavigation(navbreadcrumb)"))) {
+	documentClasses += " has-breadcrumb";
+	}
+}
+
+	<body class="@(string.IsNullOrWhiteSpace(documentClasses) ? null : documentClasses.Trim())">
+		<nav class="navbar navbar-fixed-top" id="head">
+			<div class="navbar-inner">
+				<div class="container-fluid">
+					<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</a>
+					<a class="brand" href="/">@Pageview.Area.get_Value("AreaName")</a>
+					<div class="nav-collapse">
+						<ul class="dwnavigation" id="navpages" data-settings="startlevel:1;endlevel:1;template=Pages.xslt"/>
+					</div>
+				</div>
+			</div>
+
+			@if (!string.IsNullOrEmpty(GetString("DwNavigation(navbreadcrumb)"))) {
+			<div id="breadcrumb">
+				<div class="dwnavigation" id="navbreadcrumb" data-settings="startlevel:2;template:Breadcrumb.xslt;expandmode:pathonly;id:breadcrumb;"/>
+			</div>
+			}
+		</nav>
+
+		<div class="container">
+			<!--@ContentPlaceholder-->
+		</div>
+
+		<script src="http://code.jquery.com/jquery.js"></script>
+		<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+		<!--@Snippet(JavascriptsBottom)-->
+	</body>
+</html>

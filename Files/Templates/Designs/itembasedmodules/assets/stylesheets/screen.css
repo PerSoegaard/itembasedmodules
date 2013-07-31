@@ -1,0 +1,14 @@
+@media (min-width: 980px) {
+  /* line 4, ../sass/screen.scss */
+  body {
+    padding-top: 60px;
+  }
+  /* line 7, ../sass/screen.scss */
+  body.has-breadcrumb {
+    padding-top: 90px;
+  }
+  /* line 11, ../sass/screen.scss */
+  body .sidebar-nav {
+    padding: 9px 0;
+  }
+}
