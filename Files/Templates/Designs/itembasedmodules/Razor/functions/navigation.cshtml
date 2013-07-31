@@ -1,0 +1,31 @@
+@using System.Web;
+
+@functions {
+	public string BuildUrl(dynamic parameters, bool clear = false) {
+		return BuildUrl(HttpContext.Current.Request.RawUrl, parameters, clear);
+	}
+
+	public string BuildUrl(string url, dynamic parameters, bool clear = false) {
+		var query = HttpUtility.ParseQueryString("");
+		var index = url.IndexOf('?');
+		if (index > -1) {
+			if (!clear) {
+				query = HttpUtility.ParseQueryString(url.Substring(index));
+			}
+			url = url.Substring(0, index);
+		}
+
+		var type = parameters.GetType();
+		var properties = type.GetProperties();
+		foreach (var property in properties) {
+			query.Remove(property.Name);
+			query.Add(property.Name, string.Format("{0}", property.GetValue(parameters)));
+		}
+
+		if (query.Count > 0) {
+			return string.Format("{0}?{1}", url, query);
+		} else {
+			return url;
+		}
+	}
+}

@@ -1,0 +1,71 @@
+<!--@MasterPageFile(Master/Main.cshtml)-->
+<!--@Layout.Title(Blog Post)-->
+<!--@Layout.Description()-->
+
+@{
+var post = Dynamicweb.Content.Items.Item.GetItemById("Blog_Post", GetString("Item.Id"));
+
+var data = new {
+	title = GetString("Item.Title"),
+	author = new {
+		name = GetString("Item.Author_Name"),
+		email = GetString("Item.Author_EMail")
+	}
+};
+
+var author = new {
+	name = post["Author_Name"],
+	email = post["Author_EMail"] as string
+};
+
+var postUrl = string.Format("/Default.aspx?ID={0}", Pageview.Page.ID);
+
+var comments = GetLoop("Comments");
+}
+<div class="row">
+	<article class="post span9">
+		<header>
+			<h1 class="title"><a href="@postUrl">@post["Title"]</a></h1>
+ 			<div class="well">
+				<img class="author-image" src="http://www.gravatar.com/avatar/@Dynamicweb.Base.MD5HashToString(author.email)?d=identicon" alt="@author.name" />
+				<span class="author-name">@author.name</span>
+
+				<span class="publication-time">
+ 					<span class="date">@string.Format("{0:d}", post["Publication_Time"])</span>
+					<span class="time">@string.Format("{0:t}", post["Publication_Time"])</span>
+				</span>
+				<span class="comments-info">
+					<a href="#comments">
+						@switch (comments.Count) {
+						case 0:
+							<text><!--@Translate(No_comments_yet, "No comments yet")--></text>
+							break;
+						case 1:
+							<text>@comments.Count <!--@Translate(comment, "comment")--></text>
+							break;
+						default:
+							<text>@comments.Count <!--@Translate(comments, "comments")--></text>
+							break;
+						}
+					</a>
+					(<a href="#leavecomment">Leave a comment</a>)
+				</span>
+			</div>
+		</header>
+
+		<div class="content">
+			@post["Content"]
+		</div>
+
+		<!--@Include(Partials/Blog_Post_Comments.cshtml)-->
+	</article>
+
+	<aside id="sidebar" class="span3">
+		@if (!string.IsNullOrEmpty(GetString("DwNavigation(navposts)"))) {
+			<div class="sidebar-nav">
+				<h2><!--@Translate(Posts, "Posts")--></h2>
+				<ul class="dwnavigation" id="navposts" data-settings="startlevel:2;expandmode=all;template=Blog_Posts.xslt"/>
+			</div>
+		}
+	</aside>
+</div>

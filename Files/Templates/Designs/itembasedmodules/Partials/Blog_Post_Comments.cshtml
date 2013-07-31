@@ -1,0 +1,109 @@
+<section id="comments">
+	@if (comments.Count > 0) {
+		<h2><!--@Translate(Comments, "Comments")--></h2>
+
+		foreach (var comment in comments) {
+		<article class="well comment" id='comment-@comment.GetValue("ID")'>
+			<header>
+	 			<span class="link">
+					<a href='@postUrl#comment-@comment.GetValue("ID")'>link</a>
+						 </span>
+				<img class="author-image" src='http://www.gravatar.com/avatar/@Dynamicweb.Base.MD5HashToString(comment.GetValue("Email"))?d=mm' alt="" />
+  			<span class="author-name">
+					@if (!string.IsNullOrEmpty(comment.GetValue("Website"))) {
+					<a href='@comment.GetValue("Website")'>@comment.GetValue("Name")</a>
+					} else {
+					@comment.GetValue("Name")
+					}
+				</span>
+				<span class="publication-time">
+ 					<span class="date">@string.Format("{0:D}", comment.GetValue("CreatedDate"))</span>
+				</span>
+			</header>
+
+			<blockquote>@comment.GetValue("Text")</blockquote>
+		</article>
+		}
+	}
+
+	<h2><!--@Translate(Leave_a_comment, "Leave a comment")--></h2>
+
+	<fieldset id="leavecomment">
+		<form class="form-horizontal" method="post" action="/Admin/Public/404.aspx" id="commentform">
+			<div style="display: none">
+				<input type="hidden" name="Comment.Command" id="Comment-Command" value="create" />
+				<input type="hidden" name="Comment.ItemType" value="page" />
+				<input type="hidden" name="Comment.ItemID" value="@Pageview.ID" />
+			</div>
+
+			<div id="Comment-Name" class="control-group">
+				<label class="control-label" for="Comment-Name-field">Name</label>
+				<div class="controls">
+					<input id="Comment-Name-field" name="Comment.Name" type="text" placeholder="Name" value="@Pageview.User.UserName" />
+				</div>
+			</div>
+
+			<div id="Comment-Email" class="control-group">
+				<label class="control-label" for="Comment-Email-field">E-mail address</label>
+				<div class="controls">
+					<input type="text" id="Comment-Email-field" name="Comment.Email" placeholder="E-mail address" value="@Pageview.User.Email" />
+					<span class="help-inline">(Will not be published)</span>
+				</div>
+			</div>
+
+			<div id="Comment-Website" class="control-group">
+				<label class="control-label" for="Comment-Name-field">Website</label>
+				<div class="controls">
+					<input type="text" id="Comment-Website-field" name="Comment.Website" placeholder="Website" value="" />
+				</div>
+			</div>
+
+			<div id="Comment-Text" class="control-group">
+				<label class="control-label" for="Comment-Text-field">Comment</label>
+				<div class="controls">
+					<textarea id="Comment-Text-field" name="Comment.Text" rows="10" cols="50" placeholder="Comment"></textarea>
+				</div>
+			</div>
+
+			<div class="buttons control-group">
+				<div class="controls">
+					<div id="commentform-errors" class="alert alert-error" style="display: none">
+						Please fill in the marked fields and try again.
+					</div>
+					<button class="btn btn-primary" type="submit"><i class="icon-comment"></i> <!--@Translate(Leave_comment, "Leave comment")--></button>
+				</div>
+			</div>
+		</form>
+
+		<!--@SnippetStart(JavascriptsBottom)-->
+		<script>/*<![CDATA[*/(function($, undefined) {
+			$(document).ready(function() {
+				$('#commentform').on('submit', function(event) {
+					var numberOfErrors = 0;
+
+					$.each([ 'Name', 'Email', 'Text' ], function(index, key) {
+						var value = $.trim($('#Comment-'+key+'-field').val());
+
+						$('#Comment-'+key).removeClass('error');
+						if (!value) {
+							$('#Comment-'+key).addClass('error');
+							numberOfErrors++;
+						}
+					});
+
+					if (numberOfErrors > 0) {
+						$('#commentform-errors').toggle(true);
+						event.preventDefault();
+						return;
+					}
+					$('#commentform-errors').toggle(false);
+
+					$('#commentform').attr('action', '/Default.aspx?ID=@Pageview.Page.ID');
+					// $('#Comment.Command").val('create');
+					// 	document.getElementById("Comment.NotifySubject").value = "New comment on '" + document.title + "' (from " + document.getElementById("Comment.Email").value + ")";
+				});
+			});
+			}(jQuery))/*]]>*/</script>
+		<!--@SnippetEnd(JavascriptsBottom)-->
+	</fieldset>
+</section>

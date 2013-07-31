@@ -1,0 +1,65 @@
+<!--@Include(/Razor/functions/navigation.cshtml)-->
+
+@using System.Text.RegularExpressions;
+
+@{
+var posts = GetLoop("ItemPublisher:Items.List");
+}
+<div class="blog posts">
+	@if (posts.Count < 1) {
+		<div class="alert warning">
+			<!--@Translate(No_posts_found, "No posts found")-->
+		</div>
+	} else {
+		foreach (var post in posts) {
+			var url = post.GetValue("ItemPublisher:Item.Url");
+			var excerpt = post.GetValue("ItemPublisher:Item.Excerpt");
+			if (string.IsNullOrEmpty(excerpt)) {
+				excerpt = post.GetValue("ItemPublisher:Item.Content");
+				excerpt = Regex.Replace(excerpt, "<.*?>", string.Empty);
+			}
+			var author = new {
+				name = post.GetValue("ItemPublisher:Item.Author_Name") as string,
+				email = post.GetValue("ItemPublisher:Item.Author_EMail") as string
+			};
+
+			<article class="post">
+				<header>
+					<a href="@url">
+						<h1 class="title">@post.GetValue("ItemPublisher:Item.Title")</h1>
+					</a>
+
+					<div class="well">
+						<img class="author-image" src="http://www.gravatar.com/avatar/@Dynamicweb.Base.MD5HashToString(author.email)?d=identicon" alt="@author.name" />
+						<span class="author-name">@author.name</span>
+						<span class="publication-time">
+ 							<span class="date">@string.Format("{0:D}", post.GetValue("ItemPublisher:Item.Publication_Time"))</span>
+							<!--<span class="time">@string.Format("{0:t}", post.GetValue("ItemPublisher:Item.Publication_Time"))</span>-->
+						</span>
+						<span class="comments-info">
+							<a href="@url#comments"><!--@Translate(Comments, "Comments")--></a>
+					</div>
+				</header>
+
+				<div class="excerpt">@excerpt</div>
+				<div class="read-more"><a href="@url"><!--@Translate(Read_more, "Read more")--></a></div>
+			</article>
+		}
+
+		var currentPage = GetInteger("ItemPublisher:Items.Paging.CurrentPage");
+		var numberOfPages = GetInteger("ItemPublisher:Items.Paging.TotalPages");
+
+		<ul class="pager">
+			@if (currentPage > 1) {
+				<li class="previous">
+					<a href="@BuildUrl(new { Page = currentPage-1 })">&larr; <!--@Translate(Newer_posts, "Newer posts")--></a>
+				</li>
+			}
+			@if (currentPage < numberOfPages) {
+				<li class="next">
+					<a href="@BuildUrl(new { Page = currentPage+1 })"><!--@Translate(Older_posts, "Older posts")--> &rarr;</a>
+				</li>
+			}
+		</ul>
+	}
+</div>
