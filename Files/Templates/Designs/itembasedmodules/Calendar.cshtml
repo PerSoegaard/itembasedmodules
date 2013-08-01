@@ -1,0 +1,15 @@
+<!--@MasterPageFile(Master/Main.cshtml)-->
+<!--@Layout.Title(Calendar)-->
+<!--@Layout.Description()-->
+
+<section class="calendar">
+	<header class="hero-unit">
+		<h1>
+			@GetValue("Item.Title")
+		</h1>
+	</header>
+
+	<div class="description">@GetValue("Item.Description")</div>
+
+	<div class="body-content dwcontent" id="content" class="dwcontent" title="Main content"></div>
+</section>

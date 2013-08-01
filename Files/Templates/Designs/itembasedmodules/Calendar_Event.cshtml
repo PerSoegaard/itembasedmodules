@@ -1,0 +1,12 @@
+<!--@MasterPageFile(Master/Main.cshtml)-->
+<!--@Layout.Title(Calendar Event)-->
+<!--@Layout.Description()-->
+
+<section class="calendar-event">
+	<div class="title">@GetValue("Item.Title")</div>
+	<div class="start-time">@GetDate("Item.Start_Time")</div>
+	<div class="end-time">@GetDate("Item.End_Time")</div>
+	<div class="is-all-day">@GetBoolean("Item.Is_All_Day")</div>
+	<div class="description">@GetValue("Item.Description")</div>
+	<div class="location">@GetValue("Item.Location")</div>
+</section>

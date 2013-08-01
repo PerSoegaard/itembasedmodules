@@ -2,6 +2,8 @@
   <PageItemLayouts>
     <ItemLayout systemname="Blog" template="Blog.cshtml" />
     <ItemLayout systemname="Blog_Post" template="Blog_Post.cshtml" />
+    <ItemLayout systemname="Calendar" template="Calendar.cshtml" />
+    <ItemLayout systemname="Calendar_Event" template="Calendar_Event.cshtml" />
     <ItemLayout systemname="News" template="News.cshtml" />
     <ItemLayout systemname="News_Item" template="News_Item.cshtml" />
   </PageItemLayouts>

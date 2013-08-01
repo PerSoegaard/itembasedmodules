@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-16" standalone="yes"?>
+<items>
+  <item name="Calendar Event" systemName="Calendar_Event" description="" icon="" largeIcon="">
+    <fields>
+      <field name="Title" systemName="Title" description="" type="System.String, mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.TextEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+        <validators>
+          <validator type="Dynamicweb.Content.Items.Editors.RequiredValidator, Dynamicweb" errorMessage="" />
+        </validators>
+      </field>
+      <field name="Start Time" systemName="Start_Time" description="" type="System.DateTime, mscorlib" defaultValueCulture="en-US" defaultValue="Now">
+        <editor type="Dynamicweb.Content.Items.Editors.DateTimeEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+        <validators>
+          <validator type="Dynamicweb.Content.Items.Editors.RequiredValidator, Dynamicweb" errorMessage="" />
+        </validators>
+      </field>
+      <field name="End Time" systemName="End_Time" description="" type="System.DateTime, mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.DateTimeEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="Is All Day" systemName="Is_All_Day" description="" type="System.Boolean, mscorlib" defaultValueCulture="en-US" defaultValue="False">
+        <editor type="Dynamicweb.Content.Items.Editors.CheckboxEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+      <field name="Description" systemName="Description" description="" type="System.String, mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.LongTextEditor, Dynamicweb">
+          <editorConfuguration><Parameters><Parameter addin="Dynamicweb.Content.Items.Editors.LongTextEditor" name="Rows" value="" /><Parameter addin="Dynamicweb.Content.Items.Editors.LongTextEditor" name="Cols" value="" /></Parameters></editorConfuguration>
+        </editor>
+      </field>
+      <field name="Location" systemName="Location" description="" type="System.String, mscorlib">
+        <editor type="Dynamicweb.Content.Items.Editors.TextEditor, Dynamicweb">
+          <editorConfuguration />
+        </editor>
+      </field>
+    </fields>
+    <rules>
+      <rule name="Limit parent" type="Dynamicweb.Content.Items.Activation.ParentRestrictionRule, Dynamicweb" value="RootOfWebsite" />
+      <rule name="Limit item type to" type="Dynamicweb.Content.Items.Activation.StructureRestrictionRule, Dynamicweb" value="Pages" />
+    </rules>
+    <layout>
+      <groups>
+        <group name="General" systemName="General" collapsibleState="None">
+          <fields>
+            <field systemName="Title" />
+            <field systemName="Start_Time" />
+            <field systemName="End_Time" />
+            <field systemName="Is_All_Day" />
+            <field systemName="Description" />
+            <field systemName="Location" />
+          </fields>
+        </group>
+      </groups>
+    </layout>
+  </item>
+</items>

@@ -1,0 +1,67 @@
+@{
+var calendarID = string.Format("calendar-{0}", GetInteger("ItemPublisher:Global.ParagraphId"));
+}
+
+<!--@SnippetStart(Stylesheets)-->
+<link rel="stylesheet" href='@GetValue("Template:BaseUrl")../../assets/vendor/fullcalendar/fullcalendar/fullcalendar.css'/>
+<!--@SnippetEnd(Stylesheets)-->
+
+@{
+var events = GetLoop("ItemPublisher:Items.List");
+}
+
+@if (events.Count < 1) {
+	<div class="alert warning">
+		<!--@Translate(No_events_found, "No events found")-->
+	</div>
+} else {
+	<div id="@calendarID" class="calendar events">
+		@foreach (var evnt in events) {
+			DateTime startTime, endTime;
+			DateTime.TryParse(evnt.GetValue("ItemPublisher:Item.Start_Time.RFC1123"), out startTime);
+			DateTime.TryParse(evnt.GetValue("ItemPublisher:Item.End_Time.RFC1123"), out endTime);
+			var isAllDay = evnt.GetValue("ItemPublisher:Item.Is_All_Day") == "True";
+			var url = evnt.GetValue("ItemPublisher:Item.Url");
+
+			<div class="event"
+					 data-title='@evnt.GetValue("ItemPublisher:Item.Title")'
+					 data-start='@startTime.ToString("R")'
+					 data-end='@endTime.ToString("R")'
+					 data-all-day='@(isAllDay ? "true" : null)'
+					 data-url='@url'>
+				<a href="@url">
+					<div class="title">@evnt.GetValue("ItemPublisher:Item.Title")</div>
+					<div class="start-time">@startTime</div>
+					<div class="end-time">@endTime</div>
+					<div class="is-all-day">@isAllDay</div>
+					<div class="description">@evnt.GetValue("ItemPublisher:Item.Description")</div>
+					<div class="location">@evnt.GetValue("ItemPublisher:Item.Location")</div>
+				</a>
+			</div>
+		}
+	</div>
+}
+
+<!--@SnippetStart(JavascriptsBottom)-->
+<script src='@GetValue("Template:BaseUrl")../../assets/vendor/fullcalendar/fullcalendar/fullcalendar.js'></script>
+<script>(function($, undefined) {
+	var $calendar = $('#@calendarID');
+	var events = [];
+
+	$calendar.find('.event').each(function(index, el) {
+		var event = $(el).data();
+		event.id = index;
+		;;; console.debug('event', event);
+		// event.allDay = (event.allDay == 'true');
+		events.push(event);
+
+		;;; console.debug('event', event);
+	}).hide();
+
+	$(document).ready(function() {
+    $calendar.fullCalendar({
+      events: events
+    });
+	});
+}(jQuery));</script>
+<!--@SnippetEnd(JavascriptsBottom)-->
