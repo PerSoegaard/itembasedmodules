@@ -3,10 +3,32 @@
 <!--@Layout.Description()-->
 
 <section class="calendar-event">
-	<div class="title">@GetValue("Item.Title")</div>
-	<div class="start-time">@GetDate("Item.Start_Time")</div>
-	<div class="end-time">@GetDate("Item.End_Time")</div>
-	<div class="is-all-day">@GetBoolean("Item.Is_All_Day")</div>
-	<div class="description">@GetValue("Item.Description")</div>
-	<div class="location">@GetValue("Item.Location")</div>
+	<header>
+	  <h1>@GetValue("Item.Title")</h1>
+  </header>
+
+  <dl>
+		@if (GetBoolean("Item.Is_All_Day")) {
+    	<dt>Start time</dt>
+			<dd class="start-time">@GetDate("Item.Start_Time").ToString("d")</dd>
+
+			<dt>End time</dt>
+			<dd class="end-time">@GetDate("Item.End_Time").ToString("d")</dd>
+
+			<dt>All day event</dt>
+			<dd class="is-all-day"><i class="icon-check"></i></dd>
+		} else {
+    	<dt>Start time</dt>
+			<dd class="start-time">@GetDate("Item.Start_Time")</dd>
+
+			<dt>End time</dt>
+			<dd class="end-time">@GetDate("Item.End_Time")</dd>
+		}
+
+		<dt>Description</dt>
+		<dd class="description">@GetValue("Item.Description")</dd>
+
+		<dt>Location</dt>
+		<dd class="location">@GetValue("Item.Location")</dd>
+	</dl>
 </section>

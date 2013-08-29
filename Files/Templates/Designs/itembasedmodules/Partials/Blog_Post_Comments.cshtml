@@ -8,9 +8,9 @@
 	 			<span class="link">
 					<a href='@postUrl#comment-@comment.GetValue("ID")'>link</a>
 						 </span>
-				<img class="author-image" src='http://www.gravatar.com/avatar/@Dynamicweb.Base.MD5HashToString(comment.GetValue("Email"))?d=mm' alt="" />
+				<img class="author-image" src='http://www.gravatar.com/avatar/@Dynamicweb.Base.MD5HashToString(comment.GetString("Email"))?d=mm' alt="" />
   			<span class="author-name">
-					@if (!string.IsNullOrEmpty(comment.GetValue("Website"))) {
+					@if (!string.IsNullOrEmpty(comment.GetString("Website"))) {
 					<a href='@comment.GetValue("Website")'>@comment.GetValue("Name")</a>
 					} else {
 					@comment.GetValue("Name")

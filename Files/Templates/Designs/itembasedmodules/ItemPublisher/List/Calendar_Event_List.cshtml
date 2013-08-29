@@ -50,8 +50,6 @@ var events = GetLoop("ItemPublisher:Items.List");
 	$calendar.find('.event').each(function(index, el) {
 		var event = $(el).data();
 		event.id = index;
-		;;; console.debug('event', event);
-		// event.allDay = (event.allDay == 'true');
 		events.push(event);
 
 		;;; console.debug('event', event);
@@ -59,6 +57,11 @@ var events = GetLoop("ItemPublisher:Items.List");
 
 	$(document).ready(function() {
     $calendar.fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,basicWeek,basicDay'
+			},
       events: events
     });
 	});

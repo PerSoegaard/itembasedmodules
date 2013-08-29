@@ -24,7 +24,7 @@ var newsItemUrl = string.Format("/Default.aspx?ID={0}", Pageview.Page.ID);
 	<article class="news-item span9">
 		<header>
 			<h1 class="title"><a href="@newsItemUrl">@newsItem["Title"]</a></h1>
- 			<div class="well">
+ 			<div class="well clearfix">
 				<img class="author-image" src="http://www.gravatar.com/avatar/@Dynamicweb.Base.MD5HashToString(author.email)?d=identicon" alt="@author.name" />
 				<span class="author-name">@author.name</span>
 
