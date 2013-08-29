@@ -13,14 +13,16 @@ var newsItems = GetLoop("ItemPublisher:Items.List");
 	} else {
 		foreach (var newsItem in newsItems) {
 			var url = newsItem.GetValue("ItemPublisher:Item.Url");
-			var excerpt = newsItem.GetValue("ItemPublisher:Item.Excerpt");
+			var excerpt = newsItem.GetString("ItemPublisher:Item.Excerpt");
 			if (string.IsNullOrEmpty(excerpt)) {
-				excerpt = newsItem.GetValue("ItemPublisher:Item.Content");
+				excerpt = newsItem.GetString("ItemPublisher:Item.Content");
+			}
+			if (!string.IsNullOrEmpty(excerpt)) {
 				excerpt = Regex.Replace(excerpt, "<.*?>", string.Empty);
 			}
 			var author = new {
-				name = newsItem.GetValue("ItemPublisher:Item.Author_Name") as string,
-				email = newsItem.GetValue("ItemPublisher:Item.Author_EMail") as string
+				name = newsItem.GetString("ItemPublisher:Item.Author_Name"),
+				email = newsItem.GetString("ItemPublisher:Item.Author_EMail")
 			};
 
 			<article class="news-item">

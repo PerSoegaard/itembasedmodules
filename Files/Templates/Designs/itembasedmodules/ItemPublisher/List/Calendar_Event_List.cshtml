@@ -1,4 +1,4 @@
-@{
+﻿@{
 var calendarID = string.Format("calendar-{0}", GetInteger("ItemPublisher:Global.ParagraphId"));
 }
 
@@ -17,9 +17,8 @@ var events = GetLoop("ItemPublisher:Items.List");
 } else {
 	<div id="@calendarID" class="calendar events">
 		@foreach (var evnt in events) {
-			DateTime startTime, endTime;
-			DateTime.TryParse(evnt.GetValue("ItemPublisher:Item.Start_Time.RFC1123"), out startTime);
-			DateTime.TryParse(evnt.GetValue("ItemPublisher:Item.End_Time.RFC1123"), out endTime);
+			var startTime = evnt.GetDate("ItemPublisher:Item.Start_Time");
+			var endTime = evnt.GetDate("ItemPublisher:Item.End_Time");
 			var isAllDay = evnt.GetValue("ItemPublisher:Item.Is_All_Day") == "True";
 			var url = evnt.GetValue("ItemPublisher:Item.Url");
 
