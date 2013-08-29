@@ -31,15 +31,13 @@ var newsItems = GetLoop("ItemPublisher:Items.List");
 						<h1 class="title">@newsItem.GetValue("ItemPublisher:Item.Title")</h1>
 					</a>
 
-					<div class="well">
+					<div class="well clearfix">
 						<img class="author-image" src="http://www.gravatar.com/avatar/@Dynamicweb.Base.MD5HashToString(author.email)?d=identicon" alt="@author.name" />
 						<span class="author-name">@author.name</span>
 						<span class="publication-time">
  							<span class="date">@string.Format("{0:D}", newsItem.GetValue("ItemPublisher:Item.Publication_Time"))</span>
 							<!--<span class="time">@string.Format("{0:t}", newsItem.GetValue("ItemPublisher:Item.Publication_Time"))</span>-->
 						</span>
-						<span class="comments-info">
-							<a href="@url#comments"><!--@Translate(Comments, "Comments")--></a>
 					</div>
 				</header>
 

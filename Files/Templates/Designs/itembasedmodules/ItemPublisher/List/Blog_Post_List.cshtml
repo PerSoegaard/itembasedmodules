@@ -31,7 +31,7 @@ var posts = GetLoop("ItemPublisher:Items.List");
 						<h1 class="title">@post.GetValue("ItemPublisher:Item.Title")</h1>
 					</a>
 
-					<div class="well">
+					<div class="well clearfix">
 						<img class="author-image" src="http://www.gravatar.com/avatar/@Dynamicweb.Base.MD5HashToString(author.email)?d=identicon" alt="@author.name" />
 						<span class="author-name">@author.name</span>
 						<span class="publication-time">
@@ -40,6 +40,7 @@ var posts = GetLoop("ItemPublisher:Items.List");
 						</span>
 						<span class="comments-info">
 							<a href="@url#comments"><!--@Translate(Comments, "Comments")--></a>
+						</span>
 					</div>
 				</header>
 
