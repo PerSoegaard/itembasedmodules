@@ -13,7 +13,7 @@
 			<dd class="start-time">@GetDate("Item.Start_Time").ToString("d")</dd>
 
 			<dt>End time</dt>
-			<dd class="end-time">@GetDate("Item.End_Time").ToString("d")</dd>
+			<dd class="end-time">@((!string.IsNullOrEmpty(GetString("Item.End_Time")) ? GetDate("Item.End_Time") : GetDate("Item.Start_Time")).ToString("d"))</dd>
 
 			<dt>All day event</dt>
 			<dd class="is-all-day"><i class="icon-check"></i></dd>
@@ -22,7 +22,7 @@
 			<dd class="start-time">@GetDate("Item.Start_Time")</dd>
 
 			<dt>End time</dt>
-			<dd class="end-time">@GetDate("Item.End_Time")</dd>
+			<dd class="end-time">@(!string.IsNullOrEmpty(GetString("Item.End_Time")) ? GetDate("Item.End_Time") : GetDate("Item.Start_Time"))</dd>
 		}
 
 		<dt>Description</dt>

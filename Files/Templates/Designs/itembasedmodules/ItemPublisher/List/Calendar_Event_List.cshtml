@@ -18,7 +18,7 @@ var events = GetLoop("ItemPublisher:Items.List");
 	<div id="@calendarID" class="calendar events">
 		@foreach (var evnt in events) {
 			var startTime = evnt.GetDate("ItemPublisher:Item.Start_Time");
-			var endTime = evnt.GetDate("ItemPublisher:Item.End_Time");
+			var endTime = !string.IsNullOrEmpty(evnt.GetString("ItemPublisher:Item.End_Time")) ? evnt.GetDate("ItemPublisher:Item.End_Time") : startTime;
 			var isAllDay = evnt.GetValue("ItemPublisher:Item.Is_All_Day") == "True";
 			var url = evnt.GetValue("ItemPublisher:Item.Url");
 
