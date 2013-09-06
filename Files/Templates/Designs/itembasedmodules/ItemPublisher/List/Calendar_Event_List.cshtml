@@ -47,12 +47,17 @@ var events = GetLoop("ItemPublisher:Items.List");
 	var $calendar = $('#@calendarID');
 	var events = [];
 
+	events.push({
+		title: 'Today',
+		start: new Date(),
+		end: new Date(),
+		url: 'http://www.dynamicweb.dk/'
+	});
+
 	$calendar.find('.event').each(function(index, el) {
 		var event = $(el).data();
 		event.id = index;
 		events.push(event);
-
-		;;; console.debug('event', event);
 	}).hide();
 
 	$(document).ready(function() {
