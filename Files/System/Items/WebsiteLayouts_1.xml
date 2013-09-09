@@ -7,5 +7,7 @@
     <ItemLayout systemname="News" template="News.cshtml" />
     <ItemLayout systemname="News_Item" template="News_Item.cshtml" />
   </PageItemLayouts>
-  <ParagraphItemLayouts />
+  <ParagraphItemLayouts>
+    <ItemLayout systemname="Carousel" template="Carousel.cshtml" />
+  </ParagraphItemLayouts>
 </WebsiteItemLayouts>

@@ -1,0 +1,44 @@
+@{
+var items = GetLoop("Item.Items");
+var id = string.Format("carousel-{0}", GetValue("Item.Id"));
+}
+
+<div id="@id" class="carousel slide">
+  <ol class="carousel-indicators">
+		@for (var i = 0; i < items.Count; i++) {
+			if (i == 0) {
+    		<li data-target="#@id" data-slide-to="@i" class="active"></li>
+			} else {
+    		<li data-target="#@id" data-slide-to="@i"></li>
+			}
+		}
+  </ol>
+  <!-- Carousel items -->
+  <div class="carousel-inner">
+		@for (var i = 0; i < items.Count; i++) {
+			var item = items[i];
+			var classNames = ((i == 0) ? "active " : "")+"item";
+			var imageUrl = item.GetValue("Item.Items.Image");
+			<div class="@classNames">
+				<a href='@item.GetValue("Item.Items.URL")'>
+					<img src="@imageUrl" alt=""/>
+					@if (!string.IsNullOrEmpty(item.GetString("Item.Items.Caption"))) {
+					<div class="carousel-caption">
+						@item.GetValue("Item.Items.Caption")
+    	    </div>
+					}
+				</a>
+   		</div>
+		}
+  </div>
+  <!-- Carousel nav -->
+  <a class="carousel-control left" href="#@id" data-slide="prev">&lsaquo;</a>
+  <a class="carousel-control right" href="#@id" data-slide="next">&rsaquo;</a>
+</div>
+<!--@SnippetStart(JavascriptsBottom)-->
+<script>(function($, undefined) {
+$('#@id').carousel({
+  interval: 4000
+});
+}(jQuery));</script>
+<!--@SnippetEnd(JavascriptsBottom)-->
