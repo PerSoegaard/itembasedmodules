@@ -22,7 +22,7 @@
       </field>
     </fields>
     <rules>
-      <rule name="Enable item type for" type="Dynamicweb.Content.Items.Activation.StructureRestrictionRule, Dynamicweb" value="Paragraphs,ItemList" />
+      <rule name="Enable item type for" type="Dynamicweb.Content.Items.Activation.StructureRestrictionRule, Dynamicweb" value="ItemList" />
     </rules>
     <layout>
       <groups>
