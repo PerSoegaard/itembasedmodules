@@ -19,7 +19,7 @@
 		var properties = type.GetProperties();
 		foreach (var property in properties) {
 			query.Remove(property.Name);
-			query.Add(property.Name, string.Format("{0}", property.GetValue(parameters)));
+			query.Add(property.Name, string.Format("{0}", property.GetValue(parameters, null)));
 		}
 
 		if (query.Count > 0) {
