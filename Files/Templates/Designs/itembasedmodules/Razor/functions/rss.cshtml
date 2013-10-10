@@ -1,0 +1,53 @@
+@functions {
+	public string RenderRSSChannel(dynamic channel) {
+		using (var output = new System.IO.MemoryStream()) {
+			using (var writer = System.Xml.XmlWriter.Create(output)) {
+			writer.WriteStartDocument();
+	    writer.WriteStartElement("rss");
+			writer.WriteAttributeString("version", "2.0");
+			writer.WriteAttributeString("xmlns", "atom", null, "http://www.w3.org/2005/Atom");
+
+	    writer.WriteStartElement("channel");
+			writer.WriteStartElement("atom", "link", "http://www.w3.org/2005/Atom");
+			writer.WriteAttributeString("href", channel.Link);
+			writer.WriteAttributeString("rel", "self");
+			writer.WriteAttributeString("type", "application/rss+xml");
+			writer.WriteEndElement();
+			writer.WriteElementString("link", channel.Link);
+			writer.WriteElementString("title", channel.Title);
+			writer.WriteElementString("description", channel.Description);
+			writer.WriteElementString("ttl", channel.Ttl.ToString());
+
+			foreach (var post in channel.Items) {
+				var description = post.GetString("ItemPublisher:Item.Excerpt");
+				if (string.IsNullOrWhiteSpace(description)) {
+					description = post.GetString("ItemPublisher:Item.Content");
+				}
+				if (string.IsNullOrWhiteSpace(description)) {
+					description = description.Trim();
+				}
+
+ 				var request = HttpContext.Current.Request;
+				var link = string.Format("{0}://{1}{2}", request.Url.Scheme, request.Url.Host, post.GetValue("ItemPublisher:Item.Url"));
+
+				writer.WriteStartElement("item");
+				writer.WriteElementString("link", link);
+				writer.WriteElementString("title", post.GetValue("ItemPublisher:Item.Title"));
+				writer.WriteElementString("author", post.GetValue("ItemPublisher:Item.Author_Name"));
+				writer.WriteElementString("pubDate", string.Format("{0:R}", post.GetValue("ItemPublisher:Item.Publication_Time")));
+				writer.WriteStartElement("description");
+				writer.WriteCData(description);
+				writer.WriteEndElement();
+				writer.WriteStartElement("guid");
+				writer.WriteAttributeString("isPermaLink", "true");
+				writer.WriteEndElement();
+				writer.WriteEndElement();
+			}
+
+			writer.WriteEndElement();
+			writer.WriteEndElement();
+		}
+			return System.Text.Encoding.UTF8.GetString(output.ToArray());
+		}
+	}
+}

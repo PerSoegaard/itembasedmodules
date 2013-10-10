@@ -1,16 +1,37 @@
 <!--@Include(../../Razor/functions/navigation.cshtml)-->
-
-@using System.Text.RegularExpressions;
+<!--@Include(../../Razor/functions/rss.cshtml)-->
 
 @{
+var request = HttpContext.Current.Request;
+var response = HttpContext.Current.Response;
 var newsItems = GetLoop("ItemPublisher:Items.List");
 }
+
+@if (request["format"] == "rss") {
+	try {
+		response.Clear();
+		response.ContentType = "application/rss+xml";
+		response.Write(RenderRSSChannel(new {
+					Title = @Pageview.Page.get_Value("PageMenuText"),
+					Link = request.Url.AbsoluteUri,
+					Description = "",
+					Ttl = 60,
+					Items = newsItems
+				}));
+		response.End();
+	} catch {}
+}
+
 <div class="news news-items">
 	@if (newsItems.Count < 1) {
 		<div class="alert warning">
 			<!--@Translate(No_news_found, "No news found")-->
 		</div>
 	} else {
+		<div class="feeds">
+			<a href='@BuildUrl(new { format = "rss" })'>RSS</a>
+		</div>
+
 		foreach (var newsItem in newsItems) {
 			var url = newsItem.GetValue("ItemPublisher:Item.Url");
 			var excerpt = newsItem.GetString("ItemPublisher:Item.Excerpt");
@@ -18,7 +39,7 @@ var newsItems = GetLoop("ItemPublisher:Items.List");
 				excerpt = newsItem.GetString("ItemPublisher:Item.Content");
 			}
 			if (!string.IsNullOrEmpty(excerpt)) {
-				excerpt = Regex.Replace(excerpt, "<.*?>", string.Empty);
+				excerpt = System.Text.RegularExpressions.Regex.Replace(excerpt, "<.*?>", string.Empty);
 			}
 			var author = new {
 				name = newsItem.GetString("ItemPublisher:Item.Author_Name"),

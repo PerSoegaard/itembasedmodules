@@ -60,6 +60,14 @@
 }
 
 .news-items {
+	.feeds {
+		float: right;
+	}
+
+	article {
+		clear: both;
+	}
+
 	article + article {
 		margin-top: 2em;
 	}
