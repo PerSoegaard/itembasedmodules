@@ -28,4 +28,12 @@
 			return url;
 		}
 	}
+
+	public string GetFullUrl(string url) {
+		if (url != null && HttpContext.Current != null && HttpContext.Current.Request != null) {
+			var request = HttpContext.Current.Request;
+			return string.Format("{0}://{1}/{2}", request.Url.Scheme, request.Url.Host, url.TrimStart('/'));
+		}
+		return url;
+	}
 }

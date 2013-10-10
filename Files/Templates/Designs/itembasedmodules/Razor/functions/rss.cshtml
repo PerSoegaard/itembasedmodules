@@ -28,7 +28,7 @@
 				}
 
  				var request = HttpContext.Current.Request;
-				var link = string.Format("{0}://{1}{2}", request.Url.Scheme, request.Url.Host, post.GetValue("ItemPublisher:Item.Url"));
+				var link = GetFullUrl(post.GetValue("ItemPublisher:Item.Url"));
 
 				writer.WriteStartElement("item");
 				writer.WriteElementString("link", link);
