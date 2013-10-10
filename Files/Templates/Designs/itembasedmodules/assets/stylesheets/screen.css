@@ -83,11 +83,19 @@
 }
 
 /* line 73, ../sass/_blog.scss */
+.posts .feeds {
+  float: right;
+}
+/* line 77, ../sass/_blog.scss */
+.posts article {
+  clear: both;
+}
+/* line 81, ../sass/_blog.scss */
 .posts article + article {
   margin-top: 2em;
 }
 
-/* line 79, ../sass/_blog.scss */
+/* line 87, ../sass/_blog.scss */
 .post .content {
   margin: 1em 0;
 }
