@@ -5,6 +5,7 @@
 var request = HttpContext.Current.Request;
 var response = HttpContext.Current.Response;
 var newsItems = GetLoop("ItemPublisher:Items.List");
+var newsListTitle = @Pageview.Page.get_Value("PageMenuText");
 }
 
 @if (request["format"] == "rss") {
@@ -12,7 +13,7 @@ var newsItems = GetLoop("ItemPublisher:Items.List");
 		response.Clear();
 		response.ContentType = "application/rss+xml";
 		response.Write(RenderRSSChannel(new {
-					Title = @Pageview.Page.get_Value("PageMenuText"),
+					Title = newsListTitle,
 					Link = request.Url.AbsoluteUri,
 					Description = "",
 					Ttl = 60,
@@ -29,7 +30,13 @@ var newsItems = GetLoop("ItemPublisher:Items.List");
 		</div>
 	} else {
 		<div class="feeds">
-			<a href='@BuildUrl(new { format = "rss" })'>RSS</a>
+			@{
+				var rssUrl = BuildUrl(new { format = "rss" });
+			}
+			<a class="rss" href="@rssUrl">RSS</a>
+			<!--@SnippetStart(Links)-->
+			<link rel="alternate" type="application/rss+xml" title="@newsListTitle - RSS" href="@GetFullUrl(rssUrl)" />
+			<!--@SnippetEnd(Links)-->
 		</div>
 
 		foreach (var newsItem in newsItems) {
