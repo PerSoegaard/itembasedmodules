@@ -9,5 +9,6 @@
   </PageItemLayouts>
   <ParagraphItemLayouts>
     <ItemLayout systemname="Carousel" template="Carousel.cshtml" />
+    <ItemLayout systemname="Video" template="Video.cshtml" />
   </ParagraphItemLayouts>
 </WebsiteItemLayouts>

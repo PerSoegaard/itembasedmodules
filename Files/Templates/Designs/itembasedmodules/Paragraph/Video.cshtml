@@ -1,0 +1,45 @@
+@{
+var type = "";
+}
+
+@* http://alistapart.com/article/creating-intrinsic-ratios-for-video *@
+
+@helper YouTubeVideo(string url, string width, string height) {
+	<iframe width='@(width ?? "560")' height='@(height ?? "315")' src='@url' frameborder='0' allowfullscreen></iframe>
+}
+
+@helper VimeoVideo(string url, string width, string height) {
+	<iframe src='@url' width='@(width ?? "500")' height='@(height ?? "281")' frameborder='0' webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+}
+
+@helper UnknownVideo(string url, string width, string height) {
+	<div style='width: @(width ?? "500px"); height: @(height ?? "281px")'>
+		<a href='@url'>@url</a>
+	</div>
+}
+
+@using System.Text.RegularExpressions;
+
+@helper Video() {
+	var videoUrl = GetString("Item.Url");
+	var width = string.IsNullOrWhiteSpace(GetString("Item.Width")) ? null : GetString("Item.Width");
+	var height = string.IsNullOrWhiteSpace(GetString("Item.Height")) ? null : GetString("Item.Height");
+	Match match;
+	if ((match = Regex.Match(videoUrl, @"^https?://youtu.be/(?<id>[^?&/]+)")).Success
+			|| (match = Regex.Match(videoUrl, @"^https?://www.youtube.com/watch\?v=(?<id>[^?&/]+)")).Success) {
+		var url = string.Format("//www.youtube.com/embed/{0}", match.Groups["id"]);
+		@YouTubeVideo(url, width, height);
+	} else if ((match = Regex.Match(videoUrl, @"^https?://vimeo.com/(?<id>[^?&/]+)")).Success) {
+		var url = string.Format("//player.vimeo.com/video/{0}?title=0&amp;byline=0&amp;portrait=0&amp;badge=0", match.Groups["id"]);
+		@VimeoVideo(url, width, height);
+	} else {
+		@UnknownVideo(videoUrl, width, height);
+	}
+}
+
+<figure class="video">
+	@Video()
+	@if (!string.IsNullOrWhiteSpace(GetString("Item.Description"))) {
+		<figcaption>@GetString("Item.Description")</figcaption>
+	}
+</figure>
