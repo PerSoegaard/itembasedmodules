@@ -30,9 +30,9 @@ var blogTitle = @Pageview.Page.get_Value("PageMenuText");
 		</div>
 	} else {
 		<div class="feeds">
-	@{
-var rssUrl = BuildUrl(new { format = "rss" });
-}
+			@{
+				var rssUrl = BuildUrl(new { format = "rss" });
+			}
 			<a class="rss" href="@rssUrl">RSS</a>
 			<!--@SnippetStart(Links)-->
 			<link rel="alternate" type="application/rss+xml" title="@blogTitle - RSS" href="@GetFullUrl(rssUrl)" />
