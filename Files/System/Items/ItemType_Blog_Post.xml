@@ -2,7 +2,7 @@
 <items>
   <item name="Blog Post" systemName="Blog_Post" description="" icon="" largeIcon="">
     <fields>
-      <field name="Title" systemName="Title" description="" type="System.String, mscorlib">
+      <field name="Title" systemName="Title" description="" type="System.String, mscorlib" defaultValueExpression="@Page(MenuText)" defaultValueCulture="en-US" defaultValue="">
         <editor type="Dynamicweb.Content.Items.Editors.TextEditor, Dynamicweb">
           <editorConfuguration />
         </editor>
@@ -38,7 +38,7 @@
           <editorConfuguration />
         </editor>
       </field>
-      <field name="Author Name" systemName="Author_Name" description="" type="System.String, mscorlib">
+      <field name="Author Name" systemName="Author_Name" description="" type="System.String, mscorlib" defaultValueExpression="@User(Name)" defaultValueCulture="en-US" defaultValue="">
         <editor type="Dynamicweb.Content.Items.Editors.TextEditor, Dynamicweb">
           <editorConfuguration />
         </editor>
@@ -46,7 +46,7 @@
           <validator type="Dynamicweb.Content.Items.Editors.RequiredValidator, Dynamicweb" errorMessage="" />
         </validators>
       </field>
-      <field name="Author E-Mail" systemName="Author_EMail" description="" type="System.String, mscorlib">
+      <field name="Author E-Mail" systemName="Author_EMail" description="" type="System.String, mscorlib" defaultValueExpression="@User(Email)" defaultValueCulture="en-US" defaultValue="">
         <editor type="Dynamicweb.Content.Items.Editors.TextEditor, Dynamicweb">
           <editorConfuguration />
         </editor>

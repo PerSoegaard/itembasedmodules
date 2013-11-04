@@ -2,7 +2,7 @@
 <items>
   <item name="Carousel" systemName="Carousel" description="" icon="" largeIcon="">
     <fields>
-      <field name="Title" systemName="Title" description="" type="System.String, mscorlib">
+      <field name="Title" systemName="Title" description="" type="System.String, mscorlib" defaultValueExpression="@Paragraph(Header)" defaultValueCulture="en-US" defaultValue="">
         <editor type="Dynamicweb.Content.Items.Editors.TextEditor, Dynamicweb">
           <editorConfuguration />
         </editor>
