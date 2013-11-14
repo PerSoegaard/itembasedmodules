@@ -23,7 +23,7 @@
           <validator type="Dynamicweb.Content.Items.Editors.RequiredValidator, Dynamicweb" errorMessage="" />
         </validators>
       </field>
-      <field name="Publication Time" systemName="Publication_Time" description="" type="System.DateTime, mscorlib" defaultValueCulture="en-US" defaultValue="Now">
+      <field name="Publication Time" systemName="Publication_Time" description="" type="System.DateTime, mscorlib" defaultValueExpression="@Code(DateTime.Now.AddHours(1))" defaultValueCulture="en-US" defaultValue="Now">
         <editor type="Dynamicweb.Content.Items.Editors.DateTimeEditor, Dynamicweb">
           <editorConfuguration />
         </editor>
